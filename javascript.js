@@ -44,8 +44,8 @@ function playRound(playerSelection, computerSelection) {
     //play 1 round of rock paper scissors and return string declaring result
 
     //convert player and computer selections to lower case
-    playerLowerCase = playerSelection.toLowerCase();
-    computerLowerCase = computerSelection.toLowerCase();
+    let playerLowerCase = playerSelection.toLowerCase();
+    let computerLowerCase = computerSelection.toLowerCase();
 
     //3 permutations for player, win, lose, tie
     if ((playerLowerCase === "rock" && computerLowerCase === "scissors") ||
@@ -68,3 +68,34 @@ function playRound(playerSelection, computerSelection) {
 // console.log("computer: " + computerSelection);
 // console.log(playRound(playerSelection, computerSelection));
 
+function userInput() {
+    // get user input and error handing 
+    let playerSelection;   
+    let validInput = false;
+
+    while (!validInput) {
+        console.log("Only enter rock, paper, scissors. Try again.");
+        playerSelection = prompt("One, two, three, shoot!");
+        let playerLC = playerSelection.toLowerCase();
+        validInput = (  (playerLC === "rock") || 
+                            (playerLC === "paper") ||
+                            (playerLC === "scissors"));
+    }
+    return playerSelection;
+}
+
+function game() {
+    // play 5 rounds of rock, paper, scissors
+    // print result after each round; print final winner
+    let numOfWin = 0;
+    for (let i = 0; i < 5; i++) {
+        let result = playRound(userInput(), getComputerChoice());
+        console.log(result);
+        if (result.includes("win")) {
+            numOfWin += 1;
+        }
+    }
+    if (numOfWin >= 3) {
+        console.log("You won the majority of the games! Congrats!");
+    }
+}
