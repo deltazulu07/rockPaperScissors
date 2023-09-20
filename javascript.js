@@ -38,4 +38,33 @@ function testGetComputerChoice(numOfLoops) {
     console.log("Scissors % of time: " + countScissors /numOfLoops);
 }
 
-testGetComputerChoice(10000);
+// testGetComputerChoice(10000);
+
+function playRound(playerSelection, computerSelection) {
+    //play 1 round of rock paper scissors and return string declaring result
+
+    //convert player and computer selections to lower case
+    playerLowerCase = playerSelection.toLowerCase();
+    computerLowerCase = computerSelection.toLowerCase();
+
+    //3 permutations for player, win, lose, tie
+    if ((playerLowerCase === "rock" && computerLowerCase === "scissors") ||
+        (playerLowerCase === "paper" && computerLowerCase === "rock") ||
+        (playerLowerCase === "scissors" && computerLowerCase === "paper")) 
+        {
+            return ("You win! " + playerSelection + " beats " + computerSelection);
+        }
+    else if (playerLowerCase === computerLowerCase) {
+        return ("You tied. Try again.");
+    }
+    else {
+        return ("You lost, " + computerSelection + " beats " + playerSelection);
+    }
+}
+
+// const playerSelection = "rock";
+// const computerSelection = getComputerChoice();
+// console.log("player: " + playerSelection);
+// console.log("computer: " + computerSelection);
+// console.log(playRound(playerSelection, computerSelection));
+
