@@ -2,6 +2,7 @@
 Rock paper scissors project
 
 (After fundamentals part 3 - 9/20/2023)
+
 What I learned:
 - how to use switch statements instead of if/else if/else clauses
 - practiced writing functions in Javascript
