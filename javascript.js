@@ -55,15 +55,15 @@ function getUserInput() {
     // get user input and error handing for invalid user inputs
     let playerSelection; 
     let playerSelectionLowerCase;  
-    let validInput = false;
+    let inputIsValid = false;
 
-    while (!validInput) {
+    while (!inputIsValid) {
         playerSelection = prompt("One, two, three, shoot!");
         playerSelectionLowerCase = playerSelection.toLowerCase();
-        validInput = (  (playerSelectionLowerCase === "rock") || 
-                            (playerSelectionLowerCase === "paper") ||
-                            (playerSelectionLowerCase === "scissors"));
-        if (! validInput) {
+        inputIsValid = ((playerSelectionLowerCase === "rock") || 
+                        (playerSelectionLowerCase === "paper") ||
+                        (playerSelectionLowerCase === "scissors"));
+        if (!inputIsValid) {
             console.log("Only enter rock, paper, scissors. Try again.");
         }
     }
