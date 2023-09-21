@@ -15,26 +15,26 @@ function getComputerChoice() {
 function testGetComputerChoice(numOfLoops) {
     //test the getComputerChoice() function is truly random
 
-    let countPaper = 0, countRock = 0, countScissors = 0;
+    let paperCount = 0, rockCount = 0, scissorsCount = 0;
     
     for (let i = 0; i < numOfLoops; i++) {
         switch (getComputerChoice()) {
             case "Rock":
-                countRock += 1;
+                rockCount += 1;
                 break;
             case "Paper":
-                countPaper += 1;
+                paperCount += 1;
                 break;
             default:
-                countScissors += 1;
+                scissorsCount += 1;
         }
     }
-    console.log("Paper % of time: " + countPaper / numOfLoops);
-    console.log("Rock % of time: " + countRock / numOfLoops);
-    console.log("Scissors % of time: " + countScissors /numOfLoops);
+    console.log("Paper % of time: " + paperCount / numOfLoops);
+    console.log("Rock % of time: " + rockCount / numOfLoops);
+    console.log("Scissors % of time: " + scissorsCount /numOfLoops);
 }
 
-function playRound(playerSelection, computerSelection) {
+function playOneRound(playerSelection, computerSelection) {
     //play 1 round of rock paper scissors and return string declaring result
 
     if ((playerSelection === "rock" && computerSelection === "scissors") ||
@@ -51,40 +51,40 @@ function playRound(playerSelection, computerSelection) {
     }
 }
 
-function userInput() {
+function getUserInput() {
     // get user input and error handing for invalid user inputs
     let playerSelection; 
-    let playerLC;  
+    let playerSelectionLowerCase;  
     let validInput = false;
 
     while (!validInput) {
         playerSelection = prompt("One, two, three, shoot!");
-        playerLC = playerSelection.toLowerCase();
-        validInput = (  (playerLC === "rock") || 
-                            (playerLC === "paper") ||
-                            (playerLC === "scissors"));
+        playerSelectionLowerCase = playerSelection.toLowerCase();
+        validInput = (  (playerSelectionLowerCase === "rock") || 
+                            (playerSelectionLowerCase === "paper") ||
+                            (playerSelectionLowerCase === "scissors"));
         if (! validInput) {
             console.log("Only enter rock, paper, scissors. Try again.");
         }
     }
-    return playerLC;
+    return playerSelectionLowerCase;
 }
 
-function game() {
+function playFiveRounds() {
     // play 5 rounds of rock, paper, scissors
     let numOfWin = 0, numOfTie = 0, numOfLoss = 0;
     for (let i = 0; i < 5; i++) {
-        let playerChoice = userInput();
+        let playerChoice = getUserInput();
         let computerChoice = getComputerChoice();
-        let result = playRound(playerChoice, computerChoice);
+        let gameOutcome = playOneRound(playerChoice, computerChoice);
 
         console.log("You played " + playerChoice + ", computer played " + computerChoice);
-        console.log(result);
+        console.log(gameOutcome);
         
-        if (result.includes("win")) {
+        if (gameOutcome.includes("win")) {
             numOfWin += 1;
         }
-        else if (result.includes("tie")) {
+        else if (gameOutcome.includes("tie")) {
             numOfTie += 1;
         }
         else {
@@ -95,4 +95,4 @@ function game() {
     console.log("You won " + numOfWin + " times, you lost " + numOfLoss + " times, and you tied " + numOfTie + " times.");
 }
 
-game();
+playFiveRounds();
