@@ -35,7 +35,8 @@ function testGetComputerChoice(numOfLoops) {
 }
 
 function playOneRound(playerSelection, computerSelection) {
-    //play 1 round of rock paper scissors and return string declaring result
+    //play 1 round of rock paper scissors and return 1 if player wins, 0 otherwise
+    // console.log('Player: ' + playerSelection + '; Computer: ' + computerSelection);
 
     if ((playerSelection === "rock" && computerSelection === "scissors") ||
         (playerSelection === "paper" && computerSelection === "rock") ||
@@ -51,48 +52,63 @@ function playOneRound(playerSelection, computerSelection) {
     }
 }
 
-function getUserInput() {
-    // get user input and error handing for invalid user inputs
-    let playerSelection; 
-    let playerSelectionLowerCase;  
-    let inputIsValid = false;
+// function getUserInput() {
+//     // get user input and error handing for invalid user inputs
+//     let playerSelection; 
+//     let playerSelectionLowerCase;  
+//     let inputIsValid = false;
 
-    while (!inputIsValid) {
-        playerSelection = prompt("One, two, three, shoot!");
-        playerSelectionLowerCase = playerSelection.toLowerCase();
-        inputIsValid = ((playerSelectionLowerCase === "rock") || 
-                        (playerSelectionLowerCase === "paper") ||
-                        (playerSelectionLowerCase === "scissors"));
-        if (!inputIsValid) {
-            console.log("Only enter rock, paper, scissors. Try again.");
-        }
-    }
-    return playerSelectionLowerCase;
-}
+//     while (!inputIsValid) {
+//         playerSelection = prompt("One, two, three, shoot!");
+//         playerSelectionLowerCase = playerSelection.toLowerCase();
+//         inputIsValid = ((playerSelectionLowerCase === "rock") || 
+//                         (playerSelectionLowerCase === "paper") ||
+//                         (playerSelectionLowerCase === "scissors"));
+//         if (!inputIsValid) {
+//             console.log("Only enter rock, paper, scissors. Try again.");
+//         }
+//     }
+//     return playerSelectionLowerCase;
+// }
 
-function playFiveRounds() {
-    // play 5 rounds of rock, paper, scissors
-    let numOfWin = 0, numOfTie = 0, numOfLoss = 0;
-    for (let i = 0; i < 5; i++) {
-        let playerChoice = getUserInput();
-        let computerChoice = getComputerChoice();
-        let gameOutcome = playOneRound(playerChoice, computerChoice);
+// function playFiveRounds() {
+//     // play 5 rounds of rock, paper, scissors
+//     let numOfWin = 0, numOfTie = 0, numOfLoss = 0;
+//     for (let i = 0; i < 5; i++) {
+//         let playerChoice = getUserInput();
+//         let computerChoice = getComputerChoice();
+//         let gameOutcome = playOneRound(playerChoice, computerChoice);
 
-        console.log("You played " + playerChoice + ", computer played " + computerChoice);
-        console.log(gameOutcome);
+//         console.log("You played " + playerChoice + ", computer played " + computerChoice);
+//         console.log(gameOutcome);
         
-        if (gameOutcome.includes("win")) {
-            numOfWin += 1;
-        }
-        else if (gameOutcome.includes("tie")) {
-            numOfTie += 1;
-        }
-        else {
-            numOfLoss += 1;
-        }
-    }
+//         if (gameOutcome.includes("win")) {
+//             numOfWin += 1;
+//         }
+//         else if (gameOutcome.includes("tie")) {
+//             numOfTie += 1;
+//         }
+//         else {
+//             numOfLoss += 1;
+//         }
+//     }
 
-    console.log("You won " + numOfWin + " times, you lost " + numOfLoss + " times, and you tied " + numOfTie + " times.");
-}
+//     console.log("You won " + numOfWin + " times, you lost " + numOfLoss + " times, and you tied " + numOfTie + " times.");
+// }
 
-playFiveRounds();
+// playFiveRounds();
+
+
+
+
+//ASSIGNMENT
+
+const playerButtons = document.querySelectorAll('.playerHand');
+
+playerButtons.forEach(function(button) {
+    const playerChoice = button.textContent.toLowerCase(); //text of the button
+    const divEle = document.querySelector('div');
+    button.addEventListener('click', function() {
+        divEle.textContent = playOneRound(playerChoice, getComputerChoice());
+    });
+});
