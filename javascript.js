@@ -34,17 +34,16 @@ function testGetComputerChoice(numOfLoops) {
     console.log("Scissors % of time: " + scissorsCount /numOfLoops);
 }
 
-function playOneRound(playerSelection, computerSelection) {
+function playOneRound(playerChoice, computerChoice) {
     //play 1 round and return an array of player and computer score; winner gets 1 point
-    console.log('Player: ' + playerSelection + '; Computer: ' + computerSelection);
+    console.log('Player: ' + playerChoice + '; Computer: ' + computerChoice);
 
-    if ((playerSelection === "rock" && computerSelection === "scissors") ||
-        (playerSelection === "paper" && computerSelection === "rock") ||
-        (playerSelection === "scissors" && computerSelection === "paper")) 
-        {
-            return [1, 0];
-        }
-    else if (playerSelection === computerSelection) {
+    if ((playerChoice === "rock" && computerChoice === "scissors") ||
+        (playerChoice === "paper" && computerChoice === "rock") ||
+        (playerChoice === "scissors" && computerChoice === "paper")) {
+        return [1, 0];
+    }
+    else if (playerChoice === computerChoice) {
         return [0, 0];
     }
     else {
@@ -52,31 +51,30 @@ function playOneRound(playerSelection, computerSelection) {
     }
 }
 
-function message(playerTally, computerTally, divEle) {
-    if (playerTally === 5) {
-        alert('Player wins 5-' + computerTally + '. Play again.');
-        resetGame(divEle);
-    }
-    else if (computerTally === 5) {
-        alert('Computer wins 5-' + playerTally + '. Play again.');
-        resetGame(divEle);
-    }
-    else {
-        divEle.textContent = 'Player Score: ' + playerTally + '. Computer Score: ' + computerTally;
-    }
-}
-
-function resetGame(divEle) {
-    playerTally = 0,
-    computerTally = 0;
-    divEle.textContent = '';
-}
-
 function playUntilFive() {
+    function message() {
+        if (playerScore === 5) {
+            alert('Player wins 5-' + computerScore + '. Play again.');
+            resetGame();
+        }
+        else if (computerScore === 5) {
+            alert('Computer wins 5-' + playerScore + '. Play again.');
+            resetGame();
+        }
+        else {
+            divEle.textContent = 'Player Score: ' + playerScore + '. Computer Score: ' + computerScore;
+        }
+    }  
+    
+    function resetGame() {
+        playerScore = 0,
+        computerScore = 0;
+        divEle.textContent = '';
+    }
     const playerButtons = document.querySelectorAll('.playerHand');
     const divEle = document.querySelector('div');
-    let playerTally = 0;
-    let computerTally = 0;
+    let playerScore = 0;
+    let computerScore = 0;
     let oneGameScoreArray = [0, 0];
 
     playerButtons.forEach(function(button) {
@@ -84,9 +82,9 @@ function playUntilFive() {
 
         button.addEventListener('click', function() {
             oneGameScoreArray = playOneRound(playerChoice, getComputerChoice());
-            playerTally += oneGameScoreArray[0];
-            computerTally += oneGameScoreArray[1];
-            message(playerTally, computerTally, divEle);
+            playerScore += oneGameScoreArray[0];
+            computerScore += oneGameScoreArray[1];
+            message();
         });
     });
 }
