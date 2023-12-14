@@ -35,80 +35,56 @@ function testGetComputerChoice(numOfLoops) {
 }
 
 function playOneRound(playerSelection, computerSelection) {
-    //play 1 round of rock paper scissors and return 1 if player wins, 0 otherwise
-    // console.log('Player: ' + playerSelection + '; Computer: ' + computerSelection);
+    //play 1 round and return an array of player and computer score; winner gets 1 point
+    console.log('Player: ' + playerSelection + '; Computer: ' + computerSelection);
 
     if ((playerSelection === "rock" && computerSelection === "scissors") ||
         (playerSelection === "paper" && computerSelection === "rock") ||
         (playerSelection === "scissors" && computerSelection === "paper")) 
         {
-            return ("You win! " + playerSelection + " beats " + computerSelection);
+            return [1, 0];
         }
     else if (playerSelection === computerSelection) {
-        return ("You tied. Try again.");
+        return [0, 0];
     }
     else {
-        return ("You lost, " + computerSelection + " beats " + playerSelection);
+        return [0, 1];
     }
 }
 
-// function getUserInput() {
-//     // get user input and error handing for invalid user inputs
-//     let playerSelection; 
-//     let playerSelectionLowerCase;  
-//     let inputIsValid = false;
-
-//     while (!inputIsValid) {
-//         playerSelection = prompt("One, two, three, shoot!");
-//         playerSelectionLowerCase = playerSelection.toLowerCase();
-//         inputIsValid = ((playerSelectionLowerCase === "rock") || 
-//                         (playerSelectionLowerCase === "paper") ||
-//                         (playerSelectionLowerCase === "scissors"));
-//         if (!inputIsValid) {
-//             console.log("Only enter rock, paper, scissors. Try again.");
-//         }
-//     }
-//     return playerSelectionLowerCase;
-// }
-
-// function playFiveRounds() {
-//     // play 5 rounds of rock, paper, scissors
-//     let numOfWin = 0, numOfTie = 0, numOfLoss = 0;
-//     for (let i = 0; i < 5; i++) {
-//         let playerChoice = getUserInput();
-//         let computerChoice = getComputerChoice();
-//         let gameOutcome = playOneRound(playerChoice, computerChoice);
-
-//         console.log("You played " + playerChoice + ", computer played " + computerChoice);
-//         console.log(gameOutcome);
-        
-//         if (gameOutcome.includes("win")) {
-//             numOfWin += 1;
-//         }
-//         else if (gameOutcome.includes("tie")) {
-//             numOfTie += 1;
-//         }
-//         else {
-//             numOfLoss += 1;
-//         }
-//     }
-
-//     console.log("You won " + numOfWin + " times, you lost " + numOfLoss + " times, and you tied " + numOfTie + " times.");
-// }
-
-// playFiveRounds();
-
-
-
-
-//ASSIGNMENT
-
 const playerButtons = document.querySelectorAll('.playerHand');
+const divEle = document.querySelector('div');
+let playerTally = 0;
+let computerTally = 0;
+let oneGameScoreArray = [0, 0];
+
+function message(playerTally, computerTally) {
+    if (playerTally === 5) {
+        alert('Player wins 5-' + computerTally + '. Play again.');
+        resetGame();
+    }
+    else if (computerTally === 5) {
+        alert('Computer wins 5-' + playerTally + '. Play again.');
+        resetGame();
+    }
+    else {
+        divEle.textContent = 'Player Score: ' + playerTally + '. Computer Score: ' + computerTally;
+    }
+}
+
+function resetGame() {
+    playerTally = 0,
+    computerTally = 0;
+    divEle.textContent = '';
+}
 
 playerButtons.forEach(function(button) {
-    const playerChoice = button.textContent.toLowerCase(); //text of the button
-    const divEle = document.querySelector('div');
+    const playerChoice = button.textContent.toLowerCase(); //text of each button
+
     button.addEventListener('click', function() {
-        divEle.textContent = playOneRound(playerChoice, getComputerChoice());
+        oneGameScoreArray = playOneRound(playerChoice, getComputerChoice());
+        playerTally += oneGameScoreArray[0];
+        computerTally += oneGameScoreArray[1];
+        message(playerTally, computerTally);
     });
 });
