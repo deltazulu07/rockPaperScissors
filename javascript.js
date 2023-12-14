@@ -52,39 +52,43 @@ function playOneRound(playerSelection, computerSelection) {
     }
 }
 
-const playerButtons = document.querySelectorAll('.playerHand');
-const divEle = document.querySelector('div');
-let playerTally = 0;
-let computerTally = 0;
-let oneGameScoreArray = [0, 0];
-
-function message(playerTally, computerTally) {
+function message(playerTally, computerTally, divEle) {
     if (playerTally === 5) {
         alert('Player wins 5-' + computerTally + '. Play again.');
-        resetGame();
+        resetGame(divEle);
     }
     else if (computerTally === 5) {
         alert('Computer wins 5-' + playerTally + '. Play again.');
-        resetGame();
+        resetGame(divEle);
     }
     else {
         divEle.textContent = 'Player Score: ' + playerTally + '. Computer Score: ' + computerTally;
     }
 }
 
-function resetGame() {
+function resetGame(divEle) {
     playerTally = 0,
     computerTally = 0;
     divEle.textContent = '';
 }
 
-playerButtons.forEach(function(button) {
-    const playerChoice = button.textContent.toLowerCase(); //text of each button
+function playUntilFive() {
+    const playerButtons = document.querySelectorAll('.playerHand');
+    const divEle = document.querySelector('div');
+    let playerTally = 0;
+    let computerTally = 0;
+    let oneGameScoreArray = [0, 0];
 
-    button.addEventListener('click', function() {
-        oneGameScoreArray = playOneRound(playerChoice, getComputerChoice());
-        playerTally += oneGameScoreArray[0];
-        computerTally += oneGameScoreArray[1];
-        message(playerTally, computerTally);
+    playerButtons.forEach(function(button) {
+        const playerChoice = button.textContent.toLowerCase(); //text of each button
+
+        button.addEventListener('click', function() {
+            oneGameScoreArray = playOneRound(playerChoice, getComputerChoice());
+            playerTally += oneGameScoreArray[0];
+            computerTally += oneGameScoreArray[1];
+            message(playerTally, computerTally, divEle);
+        });
     });
-});
+}
+
+playUntilFive();
